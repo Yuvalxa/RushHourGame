@@ -22,7 +22,13 @@ namespace Game.Core.Sounds
         /// <param name="clip"></param>
         public void PlayMusic(AudioClip clip);
 
+        /// <summary>
+        /// Stops effect player
+        /// </summary>
         public void StopPlayingEffect();
+        /// <summary>
+        /// Stops music player
+        /// </summary>
         public void StopPlayingMusic();
     }
 }

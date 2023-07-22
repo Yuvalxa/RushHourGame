@@ -11,6 +11,11 @@ public class MaterialOffsetController : MonoBehaviour
 
     private void Update()
     {
+        UpdateTextureOffset();
+    }
+
+    private void UpdateTextureOffset()
+    {
         float offset = Time.time * speed;
         roadMat.mainTextureOffset = new Vector2(0, offset);
         backgroundMat.mainTextureOffset = new Vector2(0, offset);

@@ -6,11 +6,10 @@ using UnityEditor.Rendering;
 
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour,IMovement
 {
     [SerializeField] private float speed;
     [SerializeField] private float boost;
-    [SerializeField] LayerMask layers;
     [SerializeField] int playerhealth = 3;
     [SerializeField] GameObject rightBorder;
     [SerializeField] GameObject leftBorder;
@@ -25,8 +24,23 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer==3) // EnemyLayer
+        {
+            SoundManager.Instance.PlayEffect(crushMusic);
+            playerhealth--;
+            InvokePlayerHealth();
+            EnemyController enemy = other.GetComponentInParent<EnemyController>();
+            enemy.gameObject.SetActive(false);
+        }
+    }
+    private void InvokePlayerHealth()
+    {
+        OnCarCrush?.Invoke(playerhealth);
+    }
 
-    private void Movement()
+    public void Movement()
     {
         float carTotalSpeed = speed;
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) // bost shift key
@@ -40,23 +54,8 @@ public class PlayerController : MonoBehaviour
         float input = Input.GetAxis("Horizontal");
         Vector3 movementVector = input * carTotalSpeed * Time.deltaTime * Vector3.right;
         Vector3 movementTarget = transform.position + movementVector;
-        
-        if (movementTarget.x < rightBorder.transform.position.x && movementTarget.x> leftBorder.transform.position.x)
+
+        if (movementTarget.x < rightBorder.transform.position.x && movementTarget.x > leftBorder.transform.position.x) // check if in borders
             transform.position += movementVector;
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == 3)
-        {
-            SoundManager.Instance.PlayEffect(crushMusic);
-            playerhealth--;
-            InvokePlayerHealth();
-            EnemyController enemy = other.GetComponentInParent<EnemyController>();
-            enemy.gameObject.SetActive(false);
-        }
-    }
-    private void InvokePlayerHealth()
-    {
-        OnCarCrush?.Invoke(playerhealth);
     }
 }

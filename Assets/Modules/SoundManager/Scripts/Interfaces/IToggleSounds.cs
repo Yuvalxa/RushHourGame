@@ -13,6 +13,18 @@ namespace Game.Core.Sounds
         /// </summary>
         public void ToggleMusic();
 
+
+        /// <summary>
+        /// Set effects to specific value
+        /// </summary>
+        public void ToggleEffects(bool value);
+
+        /// <summary>
+        /// Set music to specific value
+        /// </summary>
+        public void ToggleMusic(bool value);
+
+
         /// <summary>
         /// Set global effects volume
         /// </summary>

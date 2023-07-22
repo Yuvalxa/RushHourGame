@@ -109,6 +109,15 @@ namespace Game.Core.Sounds
             musicSource.mute = !musicSource.mute;
         }
 
+        public void ToggleEffects(bool value)
+        {
+            effectsSource.mute = value;
+        }
+
+        public void ToggleMusic(bool value)
+        {
+            musicSource.mute = value;
+        }
         public void SetEffectsVolume(float value)
         {
             effectsSource.volume = value;
@@ -126,6 +135,7 @@ namespace Game.Core.Sounds
             PlayerPrefs.SetInt(SoundPrefsKeys.EffectMute.ToString(), effectsSource.mute ? 1 : 0);
             PlayerPrefs.SetInt(SoundPrefsKeys.MusicMute.ToString(), musicSource.mute ? 1 : 0);
         }
+
 
         #endregion
     }

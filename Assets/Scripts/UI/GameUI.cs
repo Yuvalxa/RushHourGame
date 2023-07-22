@@ -31,9 +31,10 @@ public class GameUI : MonoBehaviour
             PlayerPrefs.SetInt("BestScore", 0);
 
     }
-    private void HandlePlayerScore(EnemyController controller)
+    private void HandlePlayerScore(AreaObjectController controller)
     {
-        playerScore++;
+        if (!(controller is EnemyController)) return;
+            playerScore++;
         int playerPoints = playerScore * 100;
         PlayerPrefs.SetInt("PlayersScore", playerPoints);
         if (playerPoints > bestScore)
